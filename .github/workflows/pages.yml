@@ -24,6 +24,10 @@ jobs:
           sha256sum -c site.sha256
           mkdir _site
           unzip -q site.zip -d _site
+          if [ -f site-update.zip ]; then
+            sha256sum -c site-update.sha256
+            unzip -oq site-update.zip -d _site
+          fi
           test -f _site/index.html
           test ! -e _site/conversation.md
       - uses: actions/configure-pages@v5
@@ -32,3 +36,4 @@ jobs:
           path: _site
       - uses: actions/deploy-pages@v4
         id: deployment
+
